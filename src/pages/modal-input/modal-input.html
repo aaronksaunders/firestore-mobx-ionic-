@@ -1,0 +1,38 @@
+<!--
+  Generated template for the ModalInputPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Add New Thing...
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="thingInputForm" novalidate>
+    <div class="form-group">
+      <ion-item>
+        <ion-label color="primary" floating>Name</ion-label>
+        <ion-input class="form-control" formControlName="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label color="primary" floating>Project</ion-label>
+        <ion-input class="form-control" formControlName="project"></ion-input>
+      </ion-item>
+    </div>
+  </form>
+  <button ion-button (click)="saveAndDismiss()" [disabled]="!thingInputForm.valid">SAVE THING</button>
+  <pre>{{thingInputForm.valid | json}}</pre>
+  <pre>{{thingInputForm.value | json}}</pre>
+</ion-content>

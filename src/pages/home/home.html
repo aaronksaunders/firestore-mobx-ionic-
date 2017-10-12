@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="newThing()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding *mobxAutorun>
+  <h2>Welcome to Ionic!</h2>
+  <ion-list *ngIf="thingState.things.length">
+    <ion-item text-wrap *ngFor="let item of thingState.things" >
+      <p class="badge">{{item.id}}</p>
+      <div>{{item.language}}</div>
+      <div>{{item.name}}</div>
+      <button ion-button outline item-end
+              (click)="deleteItem(item)">
+        Delete
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
