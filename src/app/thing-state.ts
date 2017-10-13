@@ -1,11 +1,13 @@
-import { observable, action } from 'mobx-angular';
+import { observable, action  } from 'mobx-angular';
 import { Injectable } from '@angular/core';
-import { FirestoreService } from './services/firestore-service'
+import  firestoreService  from './services/firestore-service'
 
-export class ThingState {
+class ThingState {
   @observable things = []
   @observable isLoading = true
   @observable isSaving = false
+
+  fs : any;
 
   @action addThing(_object) {
     this.isSaving = true;
@@ -24,14 +26,18 @@ export class ThingState {
     })
   }
 
-  constructor(private fs: FirestoreService) {
+  constructor() {
 
+    this.fs = firestoreService
     this.fs.enablePersistance(false)
       .then(() => {return this.fs.getAllObjects("things")})
       .then((result) => {
+
         this.things = result
         this.isLoading = false
       }, err => { })
   }
 }
 
+const thingState = new ThingState();
+export default thingState

@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import firebase from 'firebase';
 // Required for side-effects
 import 'firebase/firestore'
 
-@Injectable()
-export class FirestoreService {
+ class FirestoreService {
 
   DATA = {};
   CURRENT_USER = null;
@@ -34,8 +33,8 @@ export class FirestoreService {
       if (_enable === false) {
         // Initialize Cloud Firestore through firebase
         this.db = firebase.firestore();
-        console.log("firestore database", this.db)
-        console.log("no persistence")
+        console.log("firestore database", this.db);
+        console.log("no persistence");
         return resolve(true)
       }
 
@@ -43,7 +42,7 @@ export class FirestoreService {
         .then(() => {
           // Initialize Cloud Firestore through firebase
           this.db = firebase.firestore();
-          console.log("firestore database", this.db)
+          console.log("firestore database", this.db);
           return resolve(true)
         })
         .catch((err) => {
@@ -76,27 +75,38 @@ export class FirestoreService {
   //   return results.length ? results[0] : null;
   // }
   //
-  // login = (_credentials) => {
-  //   return firebase.login({
-  //     type: firebase.LoginType.PASSWORD,
-  //     passwordOptions: _credentials
-  //   })
-  // }
-  //
-  //
-  // getCurrentUser = () => {
-  //   return firebase.getCurrentUser()
-  // }
-  //
+
+  doCheckAuth(_handler) {
+    const auth = firebase.auth();
+    auth.onAuthStateChanged(_handler);
+  }
+
+  /**
+   *
+   * @param {any} email
+   * @param {any} password
+   * @returns {Promise<any>}
+   */
+  login = ({email, password}) => {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+  }
+
+   /**
+    *
+    * @returns {Promise<any>}
+    */
+   logout = () => {
+     this.CURRENT_USER = null
+     return firebase.auth().signOut()
+   }
+
+
   // createUser = (_credentials) => {
   //   return firebase.createUser(_credentials)
   // }
   //
   //
-  // logout = () => {
-  //   this.CURRENT_USER = null
-  //   return firebase.logout()
-  // }
+
   //
   //
   // resetPassword = (_email) => {
@@ -107,7 +117,7 @@ export class FirestoreService {
     return this.db.collection(_objectType).add(_objectParams)
       .then((docRef) => {
         console.log(`Document ${_objectType} written with ID: ${docRef.id}`);
-        return { id: docRef.id, ..._objectParams}
+        return {id: docRef.id, ..._objectParams}
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
@@ -150,3 +160,4 @@ export class FirestoreService {
 
 }
 
+export default new FirestoreService()

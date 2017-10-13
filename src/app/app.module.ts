@@ -8,10 +8,10 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
-import { FirestoreService } from './services/firestore-service'
 
 import { MobxAngularModule } from 'mobx-angular';
 import {ModalInputPage} from "../pages/modal-input/modal-input";
+import {LoginPage} from "../pages/login/login";
 
 @NgModule({
   declarations: [
@@ -20,7 +20,9 @@ import {ModalInputPage} from "../pages/modal-input/modal-input";
     ContactPage,
     HomePage,
     TabsPage,
-    ModalInputPage
+    ModalInputPage,
+    LoginPage
+
   ],
   imports: [
     BrowserModule,
@@ -34,10 +36,10 @@ import {ModalInputPage} from "../pages/modal-input/modal-input";
     ContactPage,
     HomePage,
     TabsPage,
-    ModalInputPage
+    ModalInputPage,
+    LoginPage
   ],
   providers: [
-    FirestoreService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

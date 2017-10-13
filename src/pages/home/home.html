@@ -11,8 +11,8 @@
 
 <ion-content padding *mobxAutorun>
   <h2>Welcome to Ionic!</h2>
-  <ion-list *ngIf="thingState.things.length">
-    <ion-item text-wrap *ngFor="let item of thingState.things" >
+  <ion-list *ngIf="thingStore.things.length">
+    <ion-item text-wrap *ngFor="let item of thingStore.things" >
       <p class="badge">{{item.id}}</p>
       <div>{{item.language}}</div>
       <div>{{item.name}}</div>

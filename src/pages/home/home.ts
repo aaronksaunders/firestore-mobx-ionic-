@@ -2,8 +2,7 @@ import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ModalController, NavController, ToastController} from 'ionic-angular';
 
 // services
-import {ThingState} from '../../app/thing-state'
-import {FirestoreService} from '../../app/services/firestore-service'
+import thingStore from '../../app/thing-state'
 
 // pages
 import {ModalInputPage} from "../modal-input/modal-input";
@@ -19,13 +18,13 @@ import {Observable} from 'rxjs'
 })
 export class HomePage {
   items: Observable<[any]>
-  thingState = null
+  thingStore = null
 
   constructor(public navCtrl: NavController,
-              public fs: FirestoreService,
               private toastCtrl: ToastController,
               public modalCtrl: ModalController) {
-    this.thingState = new ThingState(fs)
+
+    this.thingStore = thingStore
   }
 
   /**
@@ -34,7 +33,7 @@ export class HomePage {
    */
   deleteItem(_item) {
 
-    this.thingState.removeThing(_item)
+    thingStore.removeThing(_item)
       .then(() => {
         this._quickToast('Thing was deleted successfully' );
       })
@@ -50,7 +49,7 @@ export class HomePage {
     modal.onDidDismiss((data, role) => {
 
       if (!data.cancelled) {
-        this.thingState.addThing({...data.thing, when: new Date().getTime()})
+        thingStore.addThing({...data.thing, when: new Date().getTime()})
           .then(() => {
             this._quickToast('Thing was added successfully' );
           })
