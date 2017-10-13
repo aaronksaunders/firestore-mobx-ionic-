@@ -27,6 +27,10 @@ export class HomePage {
     this.thingStore = thingStore
   }
 
+  ngOnInit() {
+    thingStore.loadAll()
+  }
+
   /**
    *
    * @param _item
@@ -35,7 +39,7 @@ export class HomePage {
 
     thingStore.removeThing(_item)
       .then(() => {
-        this._quickToast('Thing was deleted successfully' );
+        this._quickToast('Thing was deleted successfully');
       })
 
   }
@@ -51,7 +55,7 @@ export class HomePage {
       if (!data.cancelled) {
         thingStore.addThing({...data.thing, when: new Date().getTime()})
           .then(() => {
-            this._quickToast('Thing was added successfully' );
+            this._quickToast('Thing was added successfully');
           })
       }
     });
@@ -64,7 +68,7 @@ export class HomePage {
    * @param _message
    * @private
    */
-  _quickToast(_message){
+  _quickToast(_message) {
     const toast = this.toastCtrl.create({
       message: _message,
       duration: 3000,

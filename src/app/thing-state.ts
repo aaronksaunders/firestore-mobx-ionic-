@@ -26,8 +26,7 @@ class ThingState {
     })
   }
 
-  constructor() {
-
+  @action loadAll() {
     this.fs = firestoreService
     this.fs.enablePersistance(false)
       .then(() => {return this.fs.getAllObjects("things")})
@@ -36,6 +35,10 @@ class ThingState {
         this.things = result
         this.isLoading = false
       }, err => { })
+  }
+
+  constructor() {
+
   }
 }
 
